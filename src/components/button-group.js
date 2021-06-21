@@ -2,9 +2,22 @@
 import { jsx, Box, Container, Flex } from 'theme-ui';
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from 'react-icons/io';
 
-export default function ButtonGroup({ next, previous }) {
+export default function ButtonGroup({ next, previous, ...rest }) {
+  const { carouselState: { currentSlide, totalItems } } = rest;
+  console.log(totalItems)
   return (
-    <h1>ButtonGroup</h1>
+    <Flex sx={{ width: '100%' }}>
+      <Container>
+        <Box sx={styles.buttonGroup} className='button__group'>
+          <button style={currentSlide === 0 ? { display: 'none' } : { display: 'block' }} onClick={previous} aria-label='Previous'>
+            <IoIosArrowRoundBack />
+          </button>
+          <button style={currentSlide === totalItems - 1 ? { display: 'none' } : { display: 'block' }} onClick={next} aria-label='Next'>
+            <IoIosArrowRoundForward />
+          </button>
+        </Box>
+      </Container>
+    </Flex>
   );
 }
 
